@@ -1,26 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Youtube from 'react-youtube';
 import './App.css';
 
 class App extends Component {
+
+  _onEnd(event) {
+    // access to player in all event handlers via event.target
+    event.target.playVideo();
+  }
+
   render() {
+    const opts = {
+      width: '100%',
+      height: '100%',
+      playerVars: { // https://developers.google.com/youtube/player_parameters
+        autoplay: 1,
+        enablejsapi: 1,
+        modestbranding: 1,
+        rel: 0,
+        showinfo: 0,
+      }
+    };
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Youtube
+        containerClassName="player"
+        videoId="MARZnZU0ISs"
+        opts={opts}
+        onEnd={this._onEnd}
+      />
     );
   }
 }
